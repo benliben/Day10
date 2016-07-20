@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/2.创建原图的副本" />
+            <option value="$PROJECT_DIR$/3.图片处理的api" />
+            <option value="$PROJECT_DIR$/5.画画板小案例" />
+            <option value="$PROJECT_DIR$/6.撕衣服小案例" />
+            <option value="$PROJECT_DIR$/7.播放音频" />
+            <option value="$PROJECT_DIR$/8.百度音乐盒的完善" />
+            <option value="$PROJECT_DIR$/app" />
+          </set>
+        </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/2.创建原图的副本" />
+            <option value="$PROJECT_DIR$/3.图片处理的api" />
+            <option value="$PROJECT_DIR$/5.画画板小案例" />
+            <option value="$PROJECT_DIR$/6.撕衣服小案例" />
+            <option value="$PROJECT_DIR$/7.播放音频" />
+            <option value="$PROJECT_DIR$/8.百度音乐盒的完善" />
+            <option value="$PROJECT_DIR$/app" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
