@@ -1,6 +1,7 @@
 package com.android.benben.a8;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Handler;
@@ -8,49 +9,55 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private Iservice iservice;
-    private MyConn conn;
+    private myConn conn;
+    private IService iservice;
     private static SeekBar sb;
 
+    /*用于接收MusicService传递过来的数据*/
     public static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             /*1.获取msg携带的数据*/
             Bundle data = msg.getData();
-            /*获取当前的进度和总进度*/
+            /*2.获取当前的进度和总进度*/
             int duration = data.getInt("duration");
             int currentPosition = data.getInt("currentPosition");
-            /*3.设置seekBar的最大进度和当期进度*/
-            sb.setMax(duration);//进度条的最大值
-            sb.setProgress(currentPosition);//设置当前进度
+            Log.i("lyx", "handleMessage: " + duration +"*"+ currentPosition);
+            /*3.设置seekBar最大值和当前值*/
+            sb.setMax(duration);//设置最大值
+            sb.setProgress(currentPosition);//设置当前的值
 
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        /*1.调用MusicService方法开启服务，保证服务在后台长期运行*/
-        Intent intent = new Intent(this, MusicService.class);
-        startService(intent);
-        /*2.调用bindService 目的是为了获取我们定义的中间人对象*/
-        conn = new MyConn();
-        /*链接MusicService服务，获取我们定义的中间人对象*/
-        bindService(intent, conn, BIND_AUTO_CREATE);
-        /*3.给seekBar设置监听*/
+        initService();
         sbChangeListener();
-
 
     }
 
+    private void initService() {
+        /*1.调用MusicService方法来开启服务，保证服务能够长期在后台运行*/
+        Intent intent = new Intent(this, MusicService.class);
+        startService(intent);
+        /*2.调用bindService 目的是为了获取我们定义的中间人对象*/
+        conn = new myConn();
+        /*2.2连接到到MusicService服务，获取定义的中间人对象*/
+        bindService(intent, conn, BIND_AUTO_CREATE);
+    }
+
+    /*对seekBar的监听*/
     private void sbChangeListener() {
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             /*拖动过程中*/
@@ -65,51 +72,49 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            /*当停止拖动执行*/
+            /*停止拖动*/
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 /*设置播放的位置*/
                 iservice.callSeekToPosition(seekBar.getProgress());
-
             }
         });
     }
 
-    private void initView() {
-        sb = (SeekBar) findViewById(R.id.main_sb);
-    }
-    /*2.1获取中间人对象*/
-    private class MyConn implements ServiceConnection {
 
-        /*当链接成功时调用*/
+    /*2.1获取中间人对象*/
+    private class myConn implements ServiceConnection {
+        /*当连接成功的时候调用*/
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            /*获取我们定义的中间人对象*/
-            iservice = (Iservice) service;
+            /*获取定义的中间人对象*/
+            iservice = (IService) service;
         }
 
-        /*当链接失败时调用*/
+        /*当连接失败的时候调用*/
         @Override
         public void onServiceDisconnected(ComponentName name) {
 
         }
     }
-    /*播放*/
+    /*播放按钮*/
     public void click1(View view) {
         iservice.callPlayMusic();
     }
-    /*暂停*/
+    /*暂停按钮*/
     public void click2(View view) {
         iservice.callPauseMusic();
     }
-    /*继续*/
+    /*继续播放按钮*/
     public void click3(View view) {
         iservice.callRePlayMusic();
+    }
+    private void initView() {
+        sb = (SeekBar) findViewById(R.id.main_sb);
     }
 
     @Override
     protected void onDestroy() {
-        /*在Activity销毁的时候取消绑定服务*/
         super.onDestroy();
     }
 }
