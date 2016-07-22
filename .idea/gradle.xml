@@ -9,6 +9,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/10.影音播放" />
+            <option value="$PROJECT_DIR$/11.videoview的使用" />
+            <option value="$PROJECT_DIR$/12.照相和录像" />
             <option value="$PROJECT_DIR$/2.创建原图的副本" />
             <option value="$PROJECT_DIR$/3.图片处理的api" />
             <option value="$PROJECT_DIR$/5.画画板小案例" />
@@ -23,6 +25,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/10.影音播放" />
+            <option value="$PROJECT_DIR$/11.videoview的使用" />
+            <option value="$PROJECT_DIR$/12.照相和录像" />
             <option value="$PROJECT_DIR$/2.创建原图的副本" />
             <option value="$PROJECT_DIR$/3.图片处理的api" />
             <option value="$PROJECT_DIR$/5.画画板小案例" />
